@@ -1,15 +1,15 @@
 // @deno-types='../mod.d.ts'
 import { Command, Config } from '../deps.ts';
-import { get, getTag, list, listTags } from './read.ts';
+import { getBookmark, getTag, listBookmarks, listTags } from './read.ts';
 
 const listCmd = new Command()
   .description('')
   .arguments('[id:number]')
   .action(async (options, id?: number) => {
     if (id) {
-      console.log(await get(id));
+      console.log(await getBookmark(id));
     } else {
-      console.log(await list());
+      console.log(await listBookmarks());
     }
   });
 
