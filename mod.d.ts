@@ -9,6 +9,15 @@ declare namespace Linkding {
     results: IBookmark[];
   }
 
+  interface IParams {
+    limit?: number;
+    offset?: number;
+  }
+
+  interface IListParams extends IParams {
+    query?: string;
+  }
+
   interface IBookmark {
     id: number;
     url: string;

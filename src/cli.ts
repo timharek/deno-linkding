@@ -5,11 +5,24 @@ import { getBookmark, getTag, listBookmarks, listTags } from './read.ts';
 const listCmd = new Command()
   .description('')
   .arguments('[id:number]')
-  .action(async (options, id?: number) => {
+  .option(
+    '-q --query <query:string>',
+    'Filters results using a search phrase using the same logic as through the UI.',
+  )
+  .option(
+    '-l --limit <limit:number>',
+    'Limits the max. number of results.',
+    { default: 100 },
+  )
+  .option(
+    '-o --offset <offset:number>',
+    'Index from which to start returning results.',
+  )
+  .action(async (options: Linkding.IListParams, id?: number) => {
     if (id) {
       console.log(await getBookmark(id));
     } else {
-      console.log(await listBookmarks());
+      console.log(await listBookmarks(options));
     }
   });
 
