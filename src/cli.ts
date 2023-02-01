@@ -1,11 +1,16 @@
 // @deno-types='../mod.d.ts'
 import { Command, Config } from '../deps.ts';
-import { list } from './read.ts';
+import { get, list } from './read.ts';
 
 const listCmd = new Command()
   .description('')
-  .action(async (options) => {
-    console.log(await list());
+  .arguments('[id:number]')
+  .action(async (options, id?: number) => {
+    if (id) {
+      console.log(await get(id));
+    } else {
+      console.log(await list());
+    }
   });
 
 await new Command()

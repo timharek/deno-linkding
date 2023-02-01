@@ -11,8 +11,8 @@ declare namespace Linkding {
     url: string;
     title: string;
     description: string;
-    website_title: string;
-    website_description: string;
+    website_title: string | null;
+    website_description: string | null;
     is_archived: boolean;
     unread: boolean;
     shared: boolean;

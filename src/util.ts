@@ -13,3 +13,10 @@ export async function _fetch(url: URL, method = 'GET', token: string) {
 
   return result;
 }
+
+export function getUrlAndToken(path: string) {
+  const url = new URL(`${Deno.env.get('LINKDING_URL')}/api/${path}`);
+  const token = `${Deno.env.get('LINKDING_API')}`;
+
+  return { url, token };
+}
