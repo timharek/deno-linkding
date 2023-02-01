@@ -12,11 +12,14 @@ const listCmd = new Command()
   .option(
     '-l --limit <limit:number>',
     'Limits the max. number of results.',
-    { default: 100 },
   )
   .option(
     '-o --offset <offset:number>',
     'Index from which to start returning results.',
+  )
+  .option(
+    '-a --all',
+    'Get all bookmarks in one go.',
   )
   .action(async (options: Linkding.IListParams, id?: number) => {
     if (id) {

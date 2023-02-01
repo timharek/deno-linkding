@@ -8,6 +8,10 @@ export async function listBookmarks(params: Linkding.IListParams) {
   if (params.query) {
     url.searchParams.set('q', params.query);
   }
+  if (params.all) {
+    const { count }: Linkding.IListResponse = await _fetch(url, 'GET', token);
+    url.searchParams.set('limit', count.toString());
+  }
   if (params.limit) {
     url.searchParams.set('limit', params.limit.toString());
   }
@@ -17,7 +21,7 @@ export async function listBookmarks(params: Linkding.IListParams) {
 
   const response: Linkding.IListResponse = await _fetch(url, 'GET', token);
 
-  return response;
+  return response.results;
 }
 
 export async function getBookmark(id: number) {

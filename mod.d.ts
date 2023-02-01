@@ -16,6 +16,7 @@ declare namespace Linkding {
 
   interface IListParams extends IParams {
     query?: string;
+    all: boolean;
   }
 
   interface IBookmark {
