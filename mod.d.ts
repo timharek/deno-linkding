@@ -1,8 +1,11 @@
 declare namespace Linkding {
-  interface IListResponse {
+  interface IResponse {
     count: number;
     next: string;
-    previous: null | number;
+    previous: number | null;
+  }
+
+  interface IListResponse extends IResponse {
     results: IBookmark[];
   }
 
@@ -19,5 +22,15 @@ declare namespace Linkding {
     tag_names: string[];
     date_added: string;
     date_modified: string;
+  }
+
+  interface ITagsResponse extends IResponse {
+    results: ITag[];
+  }
+
+  interface ITag {
+    id: number;
+    name: string;
+    date_added: string;
   }
 }

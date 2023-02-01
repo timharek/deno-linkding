@@ -18,3 +18,19 @@ export async function get(id: number) {
 
   return response;
 }
+
+export async function listTags() {
+  const { url, token } = getUrlAndToken('tags/');
+
+  const response: Linkding.IListResponse = await _fetch(url, 'GET', token);
+
+  return response;
+}
+
+export async function getTag(id: number) {
+  const { url, token } = getUrlAndToken(`tags/${id}/`);
+
+  const response: Linkding.ITag = await _fetch(url, 'GET', token);
+
+  return response;
+}
