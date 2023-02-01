@@ -1,5 +1,12 @@
 // @deno-types='../mod.d.ts'
 import { Command, Config } from '../deps.ts';
+import { list } from './read.ts';
+
+const listCmd = new Command()
+  .description('')
+  .action(async (options) => {
+    console.log(await list());
+  });
 
 await new Command()
   .name(Config.name)
@@ -20,4 +27,5 @@ await new Command()
       console.log(options);
     },
   )
+  .command('list', listCmd)
   .parse(Deno.args);

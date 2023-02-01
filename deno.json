@@ -26,6 +26,6 @@
     }
   },
   "tasks": {
-    "run": "deno run src/cli.ts"
+    "run": "deno run --allow-env --allow-read --allow-net src/cli.ts"
   }
 }
