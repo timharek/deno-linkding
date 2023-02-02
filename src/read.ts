@@ -3,13 +3,15 @@
 import 'https://deno.land/std@0.175.0/dotenv/load.ts';
 import { _fetch, getUrlAndToken } from './util.ts';
 
-export async function listBookmarks(params: Linkding.IListParams) {
+export async function listBookmarks(
+  params: Linkding.IListParams,
+): Promise<Linkding.IBookmark[]> {
   const { url, token } = getUrlAndToken('bookmarks/');
   if (params.query) {
     url.searchParams.set('q', params.query);
   }
   if (params.all) {
-    const { count }: Linkding.IListResponse = await _fetch(url, 'GET', token);
+    const { count } = await _fetch(url, 'GET', token) as Linkding.IListResponse;
     url.searchParams.set('limit', count.toString());
   }
   if (params.limit) {
@@ -19,31 +21,31 @@ export async function listBookmarks(params: Linkding.IListParams) {
     url.searchParams.set('offset', params.offset.toString());
   }
 
-  const response: Linkding.IListResponse = await _fetch(url, 'GET', token);
+  const response = await _fetch(url, 'GET', token) as Linkding.IListResponse;
 
   return response.results;
 }
 
-export async function getBookmark(id: number) {
+export async function getBookmark(id: number): Promise<Linkding.IBookmark> {
   const { url, token } = getUrlAndToken(`bookmarks/${id}/`);
 
-  const response: Linkding.IBookmark = await _fetch(url, 'GET', token);
+  const response = await _fetch(url, 'GET', token) as Linkding.IBookmark;
 
   return response;
 }
 
-export async function listTags() {
+export async function listTags(): Promise<Linkding.ITag[]> {
   const { url, token } = getUrlAndToken('tags/');
 
-  const response: Linkding.IListResponse = await _fetch(url, 'GET', token);
+  const response = await _fetch(url, 'GET', token) as Linkding.ITagsResponse;
 
-  return response;
+  return response.results;
 }
 
-export async function getTag(id: number) {
+export async function getTag(id: number): Promise<Linkding.ITag> {
   const { url, token } = getUrlAndToken(`tags/${id}/`);
 
-  const response: Linkding.ITag = await _fetch(url, 'GET', token);
+  const response = await _fetch(url, 'GET', token) as Linkding.ITag;
 
   return response;
 }

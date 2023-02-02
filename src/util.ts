@@ -1,4 +1,8 @@
-export async function _fetch(url: URL, method = 'GET', token: string) {
+export async function _fetch(
+  url: URL,
+  method = 'GET',
+  token: string,
+): Promise<unknown> {
   const result = await fetch(url, {
     method,
     headers: {
@@ -14,7 +18,7 @@ export async function _fetch(url: URL, method = 'GET', token: string) {
   return result;
 }
 
-export function getUrlAndToken(path: string) {
+export function getUrlAndToken(path: string): { url: URL; token: string } {
   const url = new URL(`${Deno.env.get('LINKDING_URL')}/api/${path}`);
   const token = `${Deno.env.get('LINKDING_API')}`;
 
