@@ -3,7 +3,9 @@ import { Command, Config } from '../deps.ts';
 import { getBookmark, getTag, listBookmarks, listTags } from './read.ts';
 
 const listCmd = new Command()
-  .description('')
+  .description(
+    'Get all bookmarks or a single bookmark depending if <id> is provided or not.',
+  )
   .arguments('[id:number]')
   .option(
     '-q --query <query:string>',
@@ -30,9 +32,11 @@ const listCmd = new Command()
   });
 
 const tagCmd = new Command()
-  .description('')
+  .description(
+    'Get all tags or a single tag depending if <id> is provided or not.',
+  )
   .arguments('[id:number]')
-  .action(async (options, id?: number) => {
+  .action(async (_options: unknown, id?: number) => {
     if (id) {
       console.log(await getTag(id));
     } else {
