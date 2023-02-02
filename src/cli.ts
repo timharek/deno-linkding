@@ -1,4 +1,5 @@
 // @deno-types='../mod.d.ts'
+
 import { Command, Config } from '../deps.ts';
 import { getBookmark, getTag, listBookmarks, listTags } from './read.ts';
 
@@ -7,6 +8,7 @@ const listCmd = new Command()
     'Get all bookmarks or a single bookmark depending if <id> is provided or not.',
   )
   .arguments('[id:number]')
+  .example('Filter for specific tag', 'linkding list -q="#my-tag"')
   .option(
     '-q --query <query:string>',
     'Filters results using a search phrase using the same logic as through the UI.',
@@ -50,10 +52,10 @@ await new Command()
   .description(Config.description)
   .meta('Author', Config.author)
   .meta('Source', Config.source)
-  .example(
-    'Example #1',
-    'magic -v',
-  )
+  .example('Get all bookmarks', 'linkding list')
+  .example('Get single bookmark', 'linkding list 10')
+  .example('Get all tags', 'linkding tag')
+  .example('Get single tag', 'linkding tag 10')
   .globalOption('-v, --verbose', 'A more verbose output.', {
     collect: true,
     value: (value: boolean, previous = 0) => (value ? previous + 1 : 0),
