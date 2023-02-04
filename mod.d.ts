@@ -44,3 +44,8 @@ declare namespace Linkding {
     date_added: string;
   }
 }
+
+interface IOptions {
+  verbose: number;
+  json: boolean;
+}

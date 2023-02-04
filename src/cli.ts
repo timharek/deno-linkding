@@ -2,6 +2,7 @@
 
 import { Command, Config } from '../deps.ts';
 import { getBookmark, getTag, listBookmarks, listTags } from './read.ts';
+import { getVerbosityMessage } from './cli_util.ts';
 
 const listCmd = new Command()
   .description(
@@ -25,11 +26,19 @@ const listCmd = new Command()
     '-a --all',
     'Get all bookmarks in one go.',
   )
-  .action(async (options: Linkding.IListParams, id?: number) => {
-    if (id) {
-      console.log(await getBookmark(id));
+  .action(async (options: unknown, id?: number) => {
+    const response = id
+      ? await getBookmark(id)
+      : await listBookmarks(options as Linkding.IListParams);
+
+    if ((options as IOptions).json) {
+      console.log(response);
     } else {
-      console.log(await listBookmarks(options));
+      type resType = typeof response;
+      getVerbosityMessage<resType>(
+        response,
+        (options as IOptions).verbose,
+      );
     }
   });
 
@@ -60,6 +69,7 @@ await new Command()
     collect: true,
     value: (value: boolean, previous = 0) => (value ? previous + 1 : 0),
   })
+  .globalOption('--json', 'Display JSON output.')
   .action(
     (options: { verbose: number }) => {
       console.log(options);
