@@ -1,6 +1,6 @@
 // @deno-types='../mod.d.ts'
 
-import 'https://deno.land/std@0.175.0/dotenv/load.ts';
+import 'https://deno.land/std@0.176.0/dotenv/load.ts';
 import { _fetch, getUrlAndToken } from './util.ts';
 
 export async function listBookmarks(
