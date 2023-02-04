@@ -15,6 +15,9 @@
     "files": {
       "include": [
         "./"
+      ],
+      "exclude": [
+        "./README.md"
       ]
     },
     "options": {
