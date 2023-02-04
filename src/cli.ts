@@ -1,8 +1,7 @@
 // @deno-types='../mod.d.ts'
 
 import { Command, Config } from '../deps.ts';
-import { getTag, listTags } from './read.ts';
-import { getListOrBookmark } from './util.ts';
+import { getListOrBookmark, getTagsOrTag } from './util.ts';
 
 const listCmd = new Command()
   .description(
@@ -36,11 +35,7 @@ const tagCmd = new Command()
   )
   .arguments('[id:number]')
   .action(async (_options: unknown, id?: number) => {
-    if (id) {
-      console.log(await getTag(id));
-    } else {
-      console.log(await listTags());
-    }
+    console.log(await getTagsOrTag(_options, id));
   });
 
 await new Command()

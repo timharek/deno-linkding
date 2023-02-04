@@ -1,4 +1,4 @@
-import { getBookmark, listBookmarks } from './read.ts';
+import { getBookmark, getTag, listBookmarks, listTags } from './read.ts';
 import { getMessage } from './cli_util.ts';
 
 export async function _fetch(
@@ -33,16 +33,35 @@ export async function getListOrBookmark(options: unknown, id?: number) {
     ? await getBookmark(id)
     : await listBookmarks(options as Linkding.IListParams);
 
-  if ((options as IOptions).json) {
-    return response;
+  return getMessageHelper(response, (options as IOptions).json);
+}
+
+export async function getTagsOrTag(options: unknown, id?: number) {
+  const response = id ? await getTag(id) : await listTags();
+
+  return getMessageHelper(response, (options as IOptions).json);
+}
+
+function getMessageHelper<
+  T extends
+    | Linkding.IBookmark
+    | Linkding.ITag
+    | Linkding.IBookmark[]
+    | Linkding.ITag[],
+>(
+  input: T,
+  jsonOutput: boolean,
+) {
+  if (jsonOutput) {
+    return input;
   }
-  if (Array.isArray(response)) {
+  if (Array.isArray(input)) {
     const resultArray = [];
-    for (const item of response) {
+    for (const item of input) {
       resultArray.push(getMessage<typeof item>(item));
     }
     return resultArray.join('\n');
   }
 
-  return getMessage<typeof response>(response);
+  return getMessage<typeof input>(input);
 }

@@ -13,8 +13,10 @@ export function getMessage<T extends Linkding.IBookmark | Linkding.ITag>(
 }
 
 function getMessageTag(input: Linkding.ITag): string {
+  const url = `${Deno.env.get('LINKDING_URL')}/bookmarks?q=%23${input.name}`;
   return `
-${input.name}
+#${Colors.underline(input.name)}
+  url: ${Colors.blue(url)}
   id: ${input.id}
   date_added: ${input.date_added}
   `;
