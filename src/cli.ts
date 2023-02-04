@@ -2,7 +2,7 @@
 
 import { Command, Config } from '../deps.ts';
 import { getBookmark, getTag, listBookmarks, listTags } from './read.ts';
-import { getVerbosityMessage } from './cli_util.ts';
+import { getMessage } from './cli_util.ts';
 
 const listCmd = new Command()
   .description(
@@ -35,9 +35,8 @@ const listCmd = new Command()
       console.log(response);
     } else {
       type resType = typeof response;
-      getVerbosityMessage<resType>(
+      getMessage<resType>(
         response,
-        (options as IOptions).verbose,
       );
     }
   });
@@ -65,10 +64,6 @@ await new Command()
   .example('Get single bookmark', 'linkding list 10')
   .example('Get all tags', 'linkding tag')
   .example('Get single tag', 'linkding tag 10')
-  .globalOption('-v, --verbose', 'A more verbose output.', {
-    collect: true,
-    value: (value: boolean, previous = 0) => (value ? previous + 1 : 0),
-  })
   .globalOption('--json', 'Display JSON output.')
   .action(
     (options: { verbose: number }) => {

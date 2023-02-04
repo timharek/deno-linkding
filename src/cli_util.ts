@@ -2,15 +2,12 @@
 
 import { Colors } from '../deps.ts';
 
-export function getVerbosityMessage<
-  T extends Linkding.IBookmark | Linkding.ITag,
->(
+export function getMessage<T extends Linkding.IBookmark | Linkding.ITag>(
   input: T,
-  verbose: number,
 ): void {
   if (Array.isArray(input)) {
     for (const item of input) {
-      getVerbosityMessage<T>(item, verbose);
+      getMessage<T>(item);
     }
     return;
   }
