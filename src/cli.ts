@@ -1,8 +1,8 @@
 // @deno-types='../mod.d.ts'
 
 import { Command, Config } from '../deps.ts';
-import { getBookmark, getTag, listBookmarks, listTags } from './read.ts';
-import { getMessage } from './cli_util.ts';
+import { getTag, listTags } from './read.ts';
+import { getListOrBookmark } from './util.ts';
 
 const listCmd = new Command()
   .description(
@@ -27,18 +27,7 @@ const listCmd = new Command()
     'Get all bookmarks in one go.',
   )
   .action(async (options: unknown, id?: number) => {
-    const response = id
-      ? await getBookmark(id)
-      : await listBookmarks(options as Linkding.IListParams);
-
-    if ((options as IOptions).json) {
-      console.log(response);
-    } else {
-      type resType = typeof response;
-      getMessage<resType>(
-        response,
-      );
-    }
+    console.log(await getListOrBookmark(options, id));
   });
 
 const tagCmd = new Command()
