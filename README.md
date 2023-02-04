@@ -28,7 +28,7 @@ const bookmark = getBookmark(10);
 ### Installation
 
 ```sh
-deno install --allow-env=LINKDING_URL,LINKDING_API --allow-read --allow-net \
+deno install --allow-env --allow-read --allow-net \
   -n linkding https://deno.land/x/linkding/src/cli.ts
 ```
 
@@ -43,4 +43,9 @@ linkding list 10
 linkding tag
 # Returns single tag with id `10`
 linkding tag 10
+# Returns all bookmarks as json
+linkding list --json
+
+# All available commands and flags
+linkding -h
 ```
