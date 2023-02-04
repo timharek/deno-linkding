@@ -5,7 +5,7 @@
  * ```ts
  * import { listBookmarks } from 'https://deno.land/x/linkding/mod.ts';
  *
- * const allBookmarks = listBookmarks({ all: true });
+ * const allBookmarks = await listBookmarks({ all: true });
  * // do what you need to do with the bookmarks.
  * ```
  *
@@ -13,7 +13,7 @@
  * ```ts
  * import { getBookmark } from 'https://deno.land/x/linkding/mod.ts';
  *
- * const bookmark = getBookmark(10);
+ * const bookmark = await getBookmark(10);
  * // do what you need to do with the bookmark.
  * ```
  *
