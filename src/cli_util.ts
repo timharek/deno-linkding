@@ -18,7 +18,7 @@ function getMessageTag(input: Linkding.ITag): string {
 #${Colors.underline(input.name)}
   url: ${Colors.blue(url)}
   id: ${input.id}
-  date_added: ${input.date_added}
+  date_added: ${formatDate(input.date_added)}
   `;
 }
 
@@ -27,8 +27,20 @@ function getMessageBookmark(input: Linkding.IBookmark): string {
 ${Colors.underline(input.title)}
   url: ${Colors.blue(input.url)}
   id: ${input.id}
-  date_added: ${input.date_added}
+  date_added: ${formatDate(input.date_added)}
   description: ${input.description ? `${input.description}` : ''}
   tags: ${input.tag_names.length > 0 ? `#${input.tag_names.join(', #')}` : ''}
   `;
+}
+
+/**
+ * Formats date to YYYY-MM-DD.
+ * @param dateString
+ *
+ * @returns YYYY-MM-DD string
+ */
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+
+  return date.toISOString().split('T')[0];
 }
