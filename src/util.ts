@@ -28,7 +28,10 @@ export function getUrlAndToken(path: string): { url: URL; token: string } {
   return { url, token };
 }
 
-export async function getListOrBookmark(options: unknown, id?: number) {
+export async function getListOrBookmark(
+  options: unknown,
+  id?: number,
+): Promise<string> {
   const response = id
     ? await getBookmark(id)
     : await listBookmarks(options as Linkding.IListParams);
@@ -36,7 +39,10 @@ export async function getListOrBookmark(options: unknown, id?: number) {
   return getMessageHelper(response, (options as IOptions).json);
 }
 
-export async function getTagsOrTag(options: unknown, id?: number) {
+export async function getTagsOrTag(
+  options: unknown,
+  id?: number,
+): Promise<string> {
   const response = id ? await getTag(id) : await listTags();
 
   return getMessageHelper(response, (options as IOptions).json);
@@ -51,9 +57,9 @@ function getMessageHelper<
 >(
   input: T,
   jsonOutput: boolean,
-) {
+): string {
   if (jsonOutput) {
-    return input;
+    return JSON.stringify(input, null, 2);
   }
   if (Array.isArray(input)) {
     const resultArray = [];
