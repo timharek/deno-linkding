@@ -1,10 +1,8 @@
 {
   "lint": {
-    "files": {
-      "include": [
-        "./"
-      ]
-    },
+    "include": [
+      "./"
+    ],
     "rules": {
       "tags": [
         "recommended"
@@ -15,21 +13,17 @@
     }
   },
   "fmt": {
-    "files": {
-      "include": [
-        "./"
-      ],
-      "exclude": [
-        "./README.md"
-      ]
-    },
-    "options": {
-      "useTabs": false,
-      "lineWidth": 80,
-      "indentWidth": 2,
-      "singleQuote": true,
-      "proseWrap": "preserve"
-    }
+    "include": [
+      "./"
+    ],
+    "exclude": [
+      "./README.md"
+    ],
+    "useTabs": false,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "singleQuote": true,
+    "proseWrap": "preserve"
   },
   "tasks": {
     "run": "deno run --allow-env --allow-read --allow-net src/cli.ts",
