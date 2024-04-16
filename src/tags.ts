@@ -1,17 +1,20 @@
+import { Tag, TagsResponse } from './schemas.ts';
 import { _fetch, instanceUrl } from './utils.ts';
 
-export async function tags(): Promise<Linkding.ITag[]> {
-  const url = `${instanceUrl}/tags/`;
+export async function tags(): Promise<TagsResponse> {
+  const url = `${instanceUrl()}/tags/`;
 
-  const response = await _fetch(url, 'GET') as Linkding.ITagsResponse;
+  const response = await _fetch(url, 'GET');
+  const result = TagsResponse.parse(response);
 
-  return response.results;
+  return result;
 }
 
-export async function tag(id: number): Promise<Linkding.ITag> {
-  const url = `${instanceUrl}/tags/${id}`;
+export async function tag(id: number): Promise<Tag> {
+  const url = `${instanceUrl()}/tags/${id}`;
 
-  const response = await _fetch(url, 'GET') as Linkding.ITag;
+  const response = await _fetch(url, 'GET');
+  const result = Tag.parse(response);
 
-  return response;
+  return result;
 }

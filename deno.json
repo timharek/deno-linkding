@@ -6,10 +6,15 @@
   "tasks": {
     "run": "deno run --allow-env --allow-read --allow-net src/cli.ts",
     "check": "deno lint && deno fmt --check && deno check **/*.ts",
-    "setup:hooks": "deno run -A -r https://deno.land/x/githooks/githooks.ts"
+    "setup:hooks": "deno run -A -r https://deno.land/x/githooks/githooks.ts",
+    "test": "deno test -A"
   },
   "githooks": {
     "pre-commit": "check"
+  },
+  "imports": {
+    "$std/": "https://deno.land/std@0.223.0/",
+    "zod": "https://deno.land/x/zod@v3.22.4/mod.ts"
   },
   "lint": {
     "include": [

@@ -1,3 +1,5 @@
+import '$std/dotenv/load.ts';
+
 export async function _fetch(
   url: URL | string,
   method = 'GET',
@@ -22,9 +24,13 @@ export async function _fetch(
 }
 
 export const instanceUrl = (): string => {
-  const url = Deno.env.get('LINKDING_URL');
+  let url = Deno.env.get('LINKDING_URL');
   if (!url) {
     throw new Error('Missing `LINKDING_URL` environment variable.');
+  }
+
+  if (!url.includes('/api')) {
+    url = `${url}/api`;
   }
 
   return url;
