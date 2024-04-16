@@ -109,3 +109,67 @@ export async function updateBookmarkByUrl(
 
   return await updateBookmark(item.id, payload);
 }
+
+export async function archivedBookmarks(
+  options?: BookmarksOptions,
+): Promise<BookmarksResponse> {
+  const url = new URL(`${instanceUrl()}/bookmarks/archived/`);
+  if (options) {
+    url.searchParams.set('q', options.query ?? '');
+    url.searchParams.set('limit', String(options.limit) ?? '');
+    url.searchParams.set('offset', String(options.offset) ?? '');
+  }
+
+  const response = await _fetch(url, 'GET');
+  const result = BookmarksResponse.parse(response);
+
+  return result;
+}
+
+export async function archiveBookmark(id: number): Promise<Bookmark | null> {
+  const url = `${instanceUrl()}/bookmarks/${id}/archive/`;
+
+  const response = await _fetch(url, 'POST');
+  if (!response) {
+    return null;
+  }
+
+  return await bookmark(id);
+}
+
+export async function archiveBookmarkByUrl(
+  url: string,
+): Promise<Bookmark | null> {
+  const searchResult = await bookmarks({ query: url });
+
+  const item = searchResult.results.find((item) => item.url.includes(url));
+  if (!item) {
+    return null;
+  }
+
+  return await archiveBookmark(item.id);
+}
+
+export async function unarchiveBookmark(id: number): Promise<Bookmark | null> {
+  const url = `${instanceUrl()}/bookmarks/${id}/unarchive/`;
+
+  const response = await _fetch(url, 'POST');
+  if (!response) {
+    return null;
+  }
+
+  return await bookmark(id);
+}
+
+export async function unarchiveBookmarkByUrl(
+  url: string,
+): Promise<Bookmark | null> {
+  const searchResult = await archivedBookmarks({ query: url });
+
+  const item = searchResult.results.find((item) => item.url.includes(url));
+  if (!item) {
+    return null;
+  }
+
+  return await unarchiveBookmark(item.id);
+}
