@@ -1,7 +1,6 @@
-import 'https://deno.land/std@0.223.0/dotenv/load.ts';
 import { _fetch, getUrlAndToken } from './utils.ts';
 
-export async function listBookmarks(
+export async function bookmarks(
   params: Linkding.IListParams,
 ): Promise<Linkding.IBookmark[]> {
   const { url, token } = getUrlAndToken('bookmarks/');
@@ -24,26 +23,10 @@ export async function listBookmarks(
   return response.results;
 }
 
-export async function getBookmark(id: number): Promise<Linkding.IBookmark> {
+export async function bookmark(id: number): Promise<Linkding.IBookmark> {
   const { url, token } = getUrlAndToken(`bookmarks/${id}/`);
 
   const response = await _fetch(url, 'GET', token) as Linkding.IBookmark;
-
-  return response;
-}
-
-export async function listTags(): Promise<Linkding.ITag[]> {
-  const { url, token } = getUrlAndToken('tags/');
-
-  const response = await _fetch(url, 'GET', token) as Linkding.ITagsResponse;
-
-  return response.results;
-}
-
-export async function getTag(id: number): Promise<Linkding.ITag> {
-  const { url, token } = getUrlAndToken(`tags/${id}/`);
-
-  const response = await _fetch(url, 'GET', token) as Linkding.ITag;
 
   return response;
 }

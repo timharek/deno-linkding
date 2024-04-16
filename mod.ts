@@ -20,4 +20,5 @@
  * @module
  */
 
-export { getBookmark, getTag, listBookmarks, listTags } from './src/read.ts';
+export { bookmark, bookmarks } from './src/bookmarks.ts';
+export { tag, tags } from './src/tags.ts';
