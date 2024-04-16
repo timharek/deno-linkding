@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const Response = z.object({
   count: z.number(),
-  next: z.string(),
+  next: z.string().nullable(),
   previous: z.number().nullable(),
 });
 

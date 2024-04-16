@@ -49,3 +49,14 @@ export async function addBookmark(payload: BookmarkPayload): Promise<Bookmark> {
 
   return result;
 }
+
+export async function bookmarkByUrl(url: string): Promise<Bookmark | null> {
+  const searchResult = await bookmarks({ query: url });
+
+  const result = searchResult.results.find((item) => item.url.includes(url));
+  if (!result) {
+    return null;
+  }
+
+  return result;
+}
