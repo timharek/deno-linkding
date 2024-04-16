@@ -60,3 +60,22 @@ export async function bookmarkByUrl(url: string): Promise<Bookmark | null> {
 
   return result;
 }
+
+export async function deleteBookmark(id: number): Promise<boolean> {
+  const url = `${instanceUrl()}/bookmarks/${id}`;
+
+  const result = await _fetch(url, 'DELETE');
+
+  return !!result;
+}
+
+export async function deleteBookmarkByUrl(url: string): Promise<boolean> {
+  const searchResult = await bookmarks({ query: url });
+
+  const item = searchResult.results.find((item) => item.url.includes(url));
+  if (!item) {
+    return false;
+  }
+
+  return await deleteBookmark(item.id);
+}

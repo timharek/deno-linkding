@@ -1,5 +1,10 @@
 import { assertEquals, assertExists } from '$std/assert/mod.ts';
-import { addBookmark, bookmarkByUrl, bookmarks } from './bookmarks.ts';
+import {
+  addBookmark,
+  bookmarkByUrl,
+  bookmarks,
+  deleteBookmarkByUrl,
+} from './bookmarks.ts';
 
 Deno.test('List bookmarks', async () => {
   const result = await bookmarks();
@@ -24,4 +29,10 @@ Deno.test('Find bookmark: example.org', async () => {
 
   assertExists(result);
   assertEquals(result.title, 'Example');
+});
+
+Deno.test('Delete bookmark: example.org', async () => {
+  const result = await deleteBookmarkByUrl('example.org');
+
+  assertExists(result);
 });

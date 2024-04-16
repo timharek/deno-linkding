@@ -18,13 +18,14 @@ export async function _fetch(
     },
     ...(payload && { body: JSON.stringify(payload) }),
   })
-    .then((response) => response.json())
+    .then((response) => response.status !== 204 ? response.json() : true)
     .catch((error) => {
-      console.log(error);
+      console.log('error');
+      console.error(error);
     });
 
   if (Deno.env.get('DEBUG')) {
-    console.debug(Deno.inspect(result));
+    console.debug('debug', Deno.inspect(result));
   }
 
   return result;
