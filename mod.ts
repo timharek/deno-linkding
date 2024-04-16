@@ -1,24 +1,36 @@
 /**
  * Simple module for accessing your [Linkding](https://github.com/sissbruecker/linkding) instance.
  *
- * ## Example for getting all bookmarks
+ * @example List bookmarks
  * ```ts
- * import { listBookmarks } from 'https://deno.land/x/linkding/mod.ts';
+ * import { bookmarks } from 'https://deno.land/x/linkding/mod.ts';
  *
- * const allBookmarks = await listBookmarks({ all: true });
- * // do what you need to do with the bookmarks.
+ * const result = await bookmarks();
  * ```
  *
- * ## Example for single bookmark
+ * @example Single bookmark
  * ```ts
- * import { getBookmark } from 'https://deno.land/x/linkding/mod.ts';
+ * import { bookmark } from 'https://deno.land/x/linkding/mod.ts';
  *
- * const bookmark = await getBookmark(10);
- * // do what you need to do with the bookmark.
+ * const result = await bookmark(10);
  * ```
  *
  * @module
  */
 
-export { bookmark, bookmarks } from './src/bookmarks.ts';
+export {
+  addBookmark,
+  archiveBookmark,
+  archiveBookmarkByUrl,
+  archivedBookmarks,
+  bookmark,
+  bookmarkByUrl,
+  bookmarks,
+  deleteBookmark,
+  deleteBookmarkByUrl,
+  unarchiveBookmark,
+  unarchiveBookmarkByUrl,
+  updateBookmark,
+  updateBookmarkByUrl,
+} from './src/bookmarks.ts';
 export { tag, tags } from './src/tags.ts';
