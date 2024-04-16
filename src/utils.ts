@@ -23,6 +23,10 @@ export async function _fetch(
       console.log(error);
     });
 
+  if (Deno.env.get('DEBUG')) {
+    console.debug(Deno.inspect(result));
+  }
+
   return result;
 }
 

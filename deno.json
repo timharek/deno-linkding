@@ -7,7 +7,8 @@
     "run": "deno run --allow-env --allow-read --allow-net src/cli.ts",
     "check": "deno lint && deno fmt --check && deno check **/*.ts",
     "setup:hooks": "deno run -A -r https://deno.land/x/githooks/githooks.ts",
-    "test": "deno test -A"
+    "test": "deno test -A",
+    "test:debug": "DEBUG=1 deno test -A"
   },
   "githooks": {
     "pre-commit": "check"
