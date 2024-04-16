@@ -20,5 +20,4 @@
  * @module
  */
 
-export * from './src/read.ts';
-export * from './src/util.ts';
+export { getBookmark, getTag, listBookmarks, listTags } from './src/read.ts';
