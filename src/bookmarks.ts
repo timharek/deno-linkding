@@ -30,3 +30,22 @@ export async function bookmark(id: number): Promise<Bookmark> {
 
   return result;
 }
+
+type BookmarkPayload = {
+  url: string;
+  title: string;
+  description?: string;
+  notes?: string;
+  is_archived?: boolean;
+  unread?: boolean;
+  shared?: boolean;
+  tag_names?: string[];
+};
+export async function addBookmark(payload: BookmarkPayload): Promise<Bookmark> {
+  const url = `${instanceUrl()}/bookmarks/`;
+
+  const response = await _fetch(url, 'POST', payload);
+  const result = Bookmark.parse(response);
+
+  return result;
+}

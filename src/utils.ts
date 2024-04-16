@@ -3,6 +3,7 @@ import '$std/dotenv/load.ts';
 export async function _fetch(
   url: URL | string,
   method = 'GET',
+  payload?: Record<string, unknown>,
 ): Promise<unknown> {
   const token = Deno.env.get('LINKDING_API');
   if (!token) {
@@ -13,7 +14,9 @@ export async function _fetch(
     headers: {
       Accept: 'application/json',
       Authorization: `Token ${token}`,
+      ...(payload && { 'Content-Type': 'application/json' }),
     },
+    ...(payload && { body: JSON.stringify(payload) }),
   })
     .then((response) => response.json())
     .catch((error) => {
