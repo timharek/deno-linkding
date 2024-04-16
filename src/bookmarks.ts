@@ -1,14 +1,14 @@
-import { _fetch, getUrlAndToken } from './utils.ts';
+import { _fetch, instanceUrl } from './utils.ts';
 
 export async function bookmarks(
   params: Linkding.IListParams,
 ): Promise<Linkding.IBookmark[]> {
-  const { url, token } = getUrlAndToken('bookmarks/');
+  const url = new URL(`${instanceUrl}/bookmarks/`);
   if (params.query) {
     url.searchParams.set('q', params.query);
   }
   if (params.all) {
-    const { count } = await _fetch(url, 'GET', token) as Linkding.IListResponse;
+    const { count } = await _fetch(url, 'GET') as Linkding.IListResponse;
     url.searchParams.set('limit', count.toString());
   }
   if (params.limit) {
@@ -18,15 +18,15 @@ export async function bookmarks(
     url.searchParams.set('offset', params.offset.toString());
   }
 
-  const response = await _fetch(url, 'GET', token) as Linkding.IListResponse;
+  const response = await _fetch(url, 'GET') as Linkding.IListResponse;
 
   return response.results;
 }
 
 export async function bookmark(id: number): Promise<Linkding.IBookmark> {
-  const { url, token } = getUrlAndToken(`bookmarks/${id}/`);
+  const url = `${instanceUrl}/bookmarks/${id}`;
 
-  const response = await _fetch(url, 'GET', token) as Linkding.IBookmark;
+  const response = await _fetch(url, 'GET') as Linkding.IBookmark;
 
   return response;
 }

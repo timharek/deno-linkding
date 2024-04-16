@@ -1,8 +1,11 @@
 export async function _fetch(
-  url: URL,
+  url: URL | string,
   method = 'GET',
-  token: string,
 ): Promise<unknown> {
+  const token = Deno.env.get('LINKDING_API');
+  if (!token) {
+    throw new Error('Missing `LINKDING_API` environment variable.');
+  }
   const result = await fetch(url, {
     method,
     headers: {
@@ -18,9 +21,11 @@ export async function _fetch(
   return result;
 }
 
-export function getUrlAndToken(path: string): { url: URL; token: string } {
-  const url = new URL(`${Deno.env.get('LINKDING_URL')}/api/${path}`);
-  const token = `${Deno.env.get('LINKDING_API')}`;
+export const instanceUrl = (): string => {
+  const url = Deno.env.get('LINKDING_URL');
+  if (!url) {
+    throw new Error('Missing `LINKDING_URL` environment variable.');
+  }
 
-  return { url, token };
-}
+  return url;
+};
