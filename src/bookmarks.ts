@@ -79,3 +79,33 @@ export async function deleteBookmarkByUrl(url: string): Promise<boolean> {
 
   return await deleteBookmark(item.id);
 }
+
+type BookmarkUpdatePayload = Omit<BookmarkPayload, 'url'> & {
+  url?: string;
+};
+
+export async function updateBookmark(
+  id: number,
+  payload: BookmarkUpdatePayload,
+): Promise<Bookmark> {
+  const url = `${instanceUrl()}/bookmarks/${id}`;
+
+  const response = await _fetch(url, 'PATCH', payload);
+  const result = Bookmark.parse(response);
+
+  return result;
+}
+
+export async function updateBookmarkByUrl(
+  url: string,
+  payload: BookmarkUpdatePayload,
+): Promise<Bookmark | null> {
+  const searchResult = await bookmarks({ query: url });
+
+  const item = searchResult.results.find((item) => item.url.includes(url));
+  if (!item) {
+    return null;
+  }
+
+  return await updateBookmark(item.id, payload);
+}

@@ -4,6 +4,7 @@ import {
   bookmarkByUrl,
   bookmarks,
   deleteBookmarkByUrl,
+  updateBookmarkByUrl,
 } from './bookmarks.ts';
 
 Deno.test('List bookmarks', async () => {
@@ -29,6 +30,15 @@ Deno.test('Find bookmark: example.org', async () => {
 
   assertExists(result);
   assertEquals(result.title, 'Example');
+});
+
+Deno.test('Update bookmark: example.org', async () => {
+  const result = await updateBookmarkByUrl('example.org', {
+    title: 'Example new',
+  });
+
+  assertExists(result);
+  assertEquals(result.title, 'Example new');
 });
 
 Deno.test('Delete bookmark: example.org', async () => {
