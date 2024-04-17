@@ -33,4 +33,5 @@ export {
   updateBookmark,
   updateBookmarkByUrl,
 } from './src/bookmarks.ts';
-export { tag, tags } from './src/tags.ts';
+export { addTag, tag, tags } from './src/tags.ts';
+export { userPreferences } from './src/user.ts';
