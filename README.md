@@ -10,20 +10,20 @@ Access your [Linkding](https://github.com/sissbruecker/linkding) instance with D
 
 Requires environment variables for both `LINKDING_URL` and `LINKDING_API`.
 
-### Example for getting all bookmarks
+### Examples
+
+#### All bookmarks
 
 ```ts
-import { listBookmarks } from "https://deno.land/x/linkding/mod.ts";
+import { bookmarks } from "https://deno.land/x/linkding/mod.ts";
 
-const allBookmarks = await listBookmarks({ all: true });
-// do what you need to do with the bookmarks.
+const allBookmarks = await bookmarks();
 ```
 
-### Example for single bookmark
+#### Single bookmark
 
 ```ts
-import { getBookmark } from "https://deno.land/x/linkding/mod.ts";
+import { bookmark } from "https://deno.land/x/linkding/mod.ts";
 
-const bookmark = await getBookmark(10);
-// do what you need to do with the bookmark.
+const bmark = await bookmark(10);
 ```
