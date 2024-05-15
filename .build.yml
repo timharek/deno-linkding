@@ -4,20 +4,18 @@ packages:
 secrets:
   - 0323bc6f-a046-4b96-8496-2bac6e7ee107
   - 6a295705-4fb6-451c-990c-9a12b0aa0dc2
-sources:
-  - git+ssh://git@git.sr.ht/~timharek/deno-linkding
 environment:
-  DIR: deno-linkding
+  dir: deno-linkding
 triggers:
   - action: email
     condition: failure
     to: tim@harek.no
 tasks:
   - test: |
-      cd $DIR
+      cd $dir
       deno task check
   - check: |
-      cd $DIR
+      cd $dir
       if [ "$(git rev-parse origin/main)" != "$(git rev-parse HEAD)" ]; then \
         complete-build; \
       fi
@@ -28,7 +26,7 @@ tasks:
       deno publish --allow-slow-types --token $JSR_API
       set -x
   - mirror: |
-      cd $DIR
+      cd $dir
       git remote add github git@github.com:timharek/deno-linkding.git
       ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
       git push github main
