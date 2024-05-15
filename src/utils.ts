@@ -1,4 +1,4 @@
-import '$std/dotenv/load.ts';
+import 'std/dotenv/load';
 
 export async function _fetch(
   url: URL | string,

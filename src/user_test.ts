@@ -1,4 +1,4 @@
-import { assertEquals, assertExists } from '$std/assert/mod.ts';
+import { assertEquals, assertExists } from 'std/assert';
 import { userPreferences } from './user.ts';
 
 Deno.test('Get user preferences', async () => {
