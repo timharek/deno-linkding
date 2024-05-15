@@ -3,6 +3,7 @@ packages:
   - deno
 secrets:
   - 0323bc6f-a046-4b96-8496-2bac6e7ee107
+  - 6a295705-4fb6-451c-990c-9a12b0aa0dc2
 sources:
   - git+ssh://git@git.sr.ht/~timharek/deno-linkding
 environment:
@@ -20,6 +21,12 @@ tasks:
       if [ "$(git rev-parse origin/main)" != "$(git rev-parse HEAD)" ]; then \
         complete-build; \
       fi
+  - new_release: |
+      set +x
+      export JSR_API=$(cat ~/jsr_timharek)
+      cd $dir
+      deno publish --allow-slow-types --token $JSR_API
+      set -x
   - mirror: |
       cd $DIR
       git remote add github git@github.com:timharek/deno-linkding.git
