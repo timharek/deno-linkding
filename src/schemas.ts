@@ -11,6 +11,7 @@ export const Bookmark = z.object({
   url: z.string(),
   title: z.string(),
   description: z.string(),
+  notes: z.string(),
   website_title: z.string().nullable(),
   website_description: z.string().nullable(),
   is_archived: z.boolean(),
