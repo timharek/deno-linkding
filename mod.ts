@@ -35,3 +35,4 @@ export {
 } from './src/bookmarks.ts';
 export { addTag, tag, tags } from './src/tags.ts';
 export { userPreferences } from './src/user.ts';
+export type { Bookmark, Tag } from './src/schemas.ts';
