@@ -20,7 +20,7 @@ tasks:
         complete-build; \
       fi
   - mirror: |
-      git --force --mirror git@github.com:timharek/deno-linkding.git
+      git push --force --mirror git@github.com:timharek/deno-linkding.git
   - new_release: |
       set +x
       export JSR_API=$(cat ~/jsr_timharek)
